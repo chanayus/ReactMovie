@@ -1,5 +1,7 @@
 import styled from "styled-components"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {useEffect, useState} from "react"
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 const MovieDetail = ({id, setIsShowDetail}) =>{
     const [movieData, setMovieData] = useState({"genres": []});
     const [visible, setVisible] = useState();
@@ -27,7 +29,8 @@ const MovieDetail = ({id, setIsShowDetail}) =>{
         background: "#000",
         transition: "0.25s",
         animation: "fade 0.25s",
-        opacity: visible
+        opacity: visible,
+        zIndex: 5000
     }
     return(
         <div style={mainStyle}>
@@ -43,7 +46,9 @@ const MovieDetail = ({id, setIsShowDetail}) =>{
                     </HeaderContent>
                 </Header>
                 <DarkEffect className="dark-filter">
-                    <CloseButton onClick={() => closeHandle()}>X</CloseButton>
+                    <CloseButton onClick={() => closeHandle()}>
+                        <FontAwesomeIcon  icon={faTimes} style={{color: "#222"}}/>
+                    </CloseButton>
                 </DarkEffect>
             </ImgHeader>
             
@@ -51,7 +56,7 @@ const MovieDetail = ({id, setIsShowDetail}) =>{
                 <div className="container">
                     <p style={{padding: "0 3%", fontSize: "1.25rem"}}>{movieData.overview}</p>
                     <Detail>
-                        <div>
+                        <div style={{justifySelf: "start"}}>
 
                             <h2>Genres</h2>
                             <h3 className="text-light">{movieData.genres.map((value,index) => index === movieData.genres.length-1 ? value.name : value.name+", ")} </h3>
@@ -84,20 +89,22 @@ const Header = styled.div`
     height: 100%;
 `
 const Poster = styled.div`
-    width: 36vmin;
+    min-width: 165px;
+    width: 20%;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);
 
 `
 const Content = styled.div`
    padding-top: 75px;
+   
    background: linear-gradient(180deg, rgba(0,0,0,1) 2%, rgba(0,0,0,0) 100%);
 `
 const ImgHeader=styled.div`
     background-size: cover;
-    background-position: 50% 25%;
-
+    background-position-x: 50%;   
     background-repeat: no-repeat;
     width: 100%;
-    height: 93vmin;
+    height: 79vh;
     animation: fade 0.55s;
     position: relative;
 `
@@ -105,12 +112,12 @@ const HeaderContent = styled.div`
     z-index: 1;    
     width: 100%;
     h1{
-        font-size: 7vmin;
+        font-size: clamp(35px,7vmin, 72px);
         text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
         margin: 10px 0;
     }
     h2{
-        font-size: 2.25vmax; 
+        font-size: clamp(25px, 2.25vmin, 50px); 
         margin: 0;
         font-weight: 300;
         text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
@@ -126,14 +133,15 @@ const DarkEffect = styled.div`
 `
 
 const Detail = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 50px 0;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
+    justify-items: center;
+    align-items:center;
+    padding: 50px 3%;
 `
 
 const Score = styled.div`
-    border: 6px solid #FFF;
+    border: 0.4vmin solid #FFF;
     border-radius: 1000px;
     width: 31vmin;
     height: 31vmin;
@@ -156,11 +164,15 @@ const CloseButton = styled.button`
     border: none;
     background: #FFF;
     font-size: 1.5rem;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
+    position: relative;
     z-index: 1000;
-    border-radius: 50%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 `
 export default MovieDetail;
