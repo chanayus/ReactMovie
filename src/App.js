@@ -11,7 +11,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/ReactMovie/home" component={Home} />
+        <Route exact path="/ReactMovie/" component={Home} />
       </Switch>
     </Router>
   );
