@@ -122,9 +122,6 @@ const Loader = styled.div`
     z-index: 5000000;
     background: #111;
 `
-const LoadIcon = styled.div`
-
-`
 
 
 export default Card;
